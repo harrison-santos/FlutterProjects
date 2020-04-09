@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'dart:async';//ajuda na hora de fazer requisições assíncronas
+import 'dart:async'; //ajuda na hora de fazer requisições assíncronas
 import 'dart:convert';
 
 const request = "https://api.hgbrasil.com/finance";
@@ -23,10 +23,7 @@ void main() async {
           ))));
 }
 
-Future<Map> getData() async {
-  http.Response response = await http.get(request);//await espera os dados chegarem
-  return json.decode(response.body);
-}
+
 
 class Home extends StatefulWidget {
   @override
@@ -42,23 +39,40 @@ class _HomeState extends State<Home> {
   double euro;
 
   void _realChanged(String text) {
+    if(text.isEmpty){
+      this._clearAll();
+      return;
+    }
     double real = double.parse(text);
     dolarController.text = (real / dolar).toStringAsFixed(2);
     euroController.text = (real / euro).toStringAsFixed(2);
   }
 
   void _dolarChanged(String text) {
+    if(text.isEmpty){
+      this._clearAll();
+      return;
+    }
     double dolar = double.parse(text);
     realController.text = (dolar * this.dolar).toStringAsFixed(2);
     euroController.text = (dolar * this.dolar / euro).toStringAsFixed(2);
   }
 
   void _euroChanged(String text) {
+    if(text.isEmpty){
+      this._clearAll();
+      return;
+    }
     double euro = double.parse(text);
     realController.text = (euro * this.euro).toStringAsFixed(2);
     dolarController.text = (euro * this.euro / dolar).toStringAsFixed(2);
+  }
 
-    print(text);
+  void _clearAll(){
+    realController.text = "";
+    dolarController.text = "";
+    euroController.text = "";
+
   }
 
   @override
@@ -109,10 +123,10 @@ class _HomeState extends State<Home> {
                   if (snapshot.hasError) {
                     return Center(
                         child: Text(
-                          "Erro na hora de Carregar os dados",
-                          style: TextStyle(color: Colors.amber, fontSize: 25),
-                          textAlign: TextAlign.center,
-                        ));
+                      "Erro na hora de Carregar os dados",
+                      style: TextStyle(color: Colors.amber, fontSize: 25),
+                      textAlign: TextAlign.center,
+                    ));
                   } else {
                     return Container(color: Colors.green);
                   }
@@ -126,7 +140,7 @@ Widget buildTextField(
   return TextField(
     controller: cont,
     onChanged: fun,
-    keyboardType: TextInputType.number,
+    keyboardType: TextInputType.numberWithOptions(decimal: true),
     decoration: InputDecoration(
         labelText: label,
         labelStyle: TextStyle(color: Colors.amber),
@@ -134,3 +148,10 @@ Widget buildTextField(
     style: TextStyle(color: Colors.amber, fontSize: 25),
   );
 }
+
+Future<Map> getData() async {
+  http.Response response =
+  await http.get(request); //await espera os dados chegarem
+  return json.decode(response.body);
+}
+
