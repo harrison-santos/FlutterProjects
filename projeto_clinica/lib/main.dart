@@ -1,9 +1,11 @@
 import "package:flutter/material.dart";
-import "package:projetoclinica/ui/cobertura/cadastro_cobertura.dart";
+import "package:projetoclinica/ui/paciente/cadastro_paciente.dart";
+import "package:projetoclinica/ui/paciente/paciente_page.dart";
 
 void main(){
   runApp(MaterialApp(
-    home: CadastroCobertura()
+    debugShowCheckedModeBanner: false,
+    home: CadastroPaciente()
   ));
 
 

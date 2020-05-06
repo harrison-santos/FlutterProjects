@@ -61,7 +61,7 @@ class Paciente{
   String dt_nascimento;
   String rg;
   String cpf;
-  int endereco_id;//FOREIGN KEY
+  String endereco_id;//FOREIGN KEY
 
   Paciente(){}
 
@@ -87,7 +87,7 @@ class Paciente{
 
   @override
   String toString() {
-    return "{ID: $id; Nome: $nome}";
+    return "{ID: $id; Nome: $nome; DT: $dt_nascimento; RG: $rg; CPF: $cpf; Endereco: $endereco_id}";
   }
 
 
