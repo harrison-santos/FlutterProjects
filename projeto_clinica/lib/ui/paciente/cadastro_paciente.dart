@@ -33,11 +33,15 @@ class _CadastroPacienteState extends State<CadastroPaciente> {
     pacienteHelper.getAllPaciente().then((list){
       print(list);
     });
+
+
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: ,
+    );
   }
 
 
