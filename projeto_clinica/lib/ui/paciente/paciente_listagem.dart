@@ -5,12 +5,12 @@ import "package:projetoclinica/helpers/paciente_helper.dart";
 
 import 'paciente_page.dart';
 
-class CadastroPaciente extends StatefulWidget {
+class ListagemPaciente extends StatefulWidget {
   @override
-  _CadastroPacienteState createState() => _CadastroPacienteState();
+  _ListagemPacienteState createState() => _ListagemPacienteState();
 }
 
-class _CadastroPacienteState extends State<CadastroPaciente> {
+class _ListagemPacienteState extends State<ListagemPaciente> {
   PacienteHelper pacienteHelper = PacienteHelper();
   List<Paciente> pacientes = List();
 
@@ -56,7 +56,7 @@ class _CadastroPacienteState extends State<CadastroPaciente> {
         backgroundColor: Colors.blueAccent,
       ),
       appBar: AppBar(
-        title: Text("Pacientes"),
+        title: Text("Lista de Pacientes"),
         backgroundColor: Colors.blueAccent,
         centerTitle: true,
       ),
@@ -68,6 +68,18 @@ class _CadastroPacienteState extends State<CadastroPaciente> {
             return _pacienteCard(context, index);
           }
       ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                title: Text("Inicio")
+            ),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.exit_to_app),
+                title: Text("Sair")
+            ),
+          ],
+        )
     );
   }
 

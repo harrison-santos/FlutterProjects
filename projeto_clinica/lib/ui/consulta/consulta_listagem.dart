@@ -1,12 +1,12 @@
 import "package:flutter/material.dart";
 import "package:projetoclinica/helpers/consulta_helper.dart";
 
-class CadastroConsulta extends StatefulWidget {
+class ListagemConsulta extends StatefulWidget {
   @override
-  _CadastroConsultaState createState() => _CadastroConsultaState();
+  _ListagemConsultaState createState() => _ListagemConsultaState();
 }
 
-class _CadastroConsultaState extends State<CadastroConsulta> {
+class _ListagemConsultaState extends State<ListagemConsulta> {
   ConsultaHelper consultaHelper = ConsultaHelper();
 
   @override
@@ -38,7 +38,11 @@ class _CadastroConsultaState extends State<CadastroConsulta> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Listagem de Consultas"),
+      ),
+    );
   }
 
 

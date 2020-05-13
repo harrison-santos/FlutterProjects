@@ -72,6 +72,7 @@ class Medico{
 
   Map toMap(){
     Map<String, dynamic> map = {
+      "id": id,
       "nome": nome,
       "crm": crm,
       "especialidade_id": especialidade_id,

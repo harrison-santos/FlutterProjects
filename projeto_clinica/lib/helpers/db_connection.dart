@@ -17,7 +17,8 @@ final enderecoTable = "endereco";
 
 //FIELDS
 final String especialidade_fields = "id INTEGER PRIMARY KEY, descricao TEXT";
-final String medico_fields =  "id INTEGER PRIMARY KEY, nome TEXT, crm TEXT, "
+final String medico_fields =  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+    "nome TEXT, crm TEXT, "
     "especialidade_id INTEGER, "
     "FOREIGN KEY (especialidade_id) REFERENCES especialidade (id)";
 final String pagamento_fields = "id INTEGER PRIMARY KEY, valor FLOAT, data DATE, "
@@ -52,7 +53,7 @@ class CustomDatabaseConnection{
 
   Future<Database> initDb() async{
     final databasesPath = await getDatabasesPath();
-    final path = join(databasesPath, "clinica4.db");
+    final path = join(databasesPath, "clinica5.db");
 
     return await openDatabase(
         path,
