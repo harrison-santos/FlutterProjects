@@ -21,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text("Clínica Azumba"),
+        title: Text("Clínica Médica"),
         centerTitle: true,
       ),
       body: Padding(

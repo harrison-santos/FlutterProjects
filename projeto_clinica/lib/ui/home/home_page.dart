@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Clinica Medica"),
+        title: Text("Clinica Médica"),
         centerTitle: true,
       ),
       body: Padding(

@@ -56,7 +56,7 @@ class _ListagemPacienteState extends State<ListagemPaciente> {
         backgroundColor: Colors.blueAccent,
       ),
       appBar: AppBar(
-        title: Text("Lista de Pacientes"),
+        title: Text("Listagem de Pacientes"),
         backgroundColor: Colors.blueAccent,
         centerTitle: true,
       ),
