@@ -76,6 +76,7 @@ class Paciente{
 
   Map toMap(){
     Map<String, dynamic> map = {
+      "id": id,
       "nome": nome,
       "dt_nascimento": dt_nascimento,
       "rg": rg,

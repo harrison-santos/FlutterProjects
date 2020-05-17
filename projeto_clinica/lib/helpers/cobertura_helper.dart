@@ -68,6 +68,7 @@ class Cobertura{
 
   Map toMap(){
     Map<String, dynamic> map = {
+      "id": id,
       "descricao": descricao,
     };
     return map;

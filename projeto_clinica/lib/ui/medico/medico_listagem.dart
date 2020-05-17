@@ -88,6 +88,7 @@ class _ListagemMedicoState extends State<ListagemMedico> {
               Padding(
                 padding: EdgeInsets.only(left: 10.0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text("ID: ${medicos[index].id}" ),
                     Text("Nome: ${medicos[index].nome}" ),

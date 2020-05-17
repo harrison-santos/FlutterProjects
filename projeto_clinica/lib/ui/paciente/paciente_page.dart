@@ -115,7 +115,6 @@ class _PacientePageState extends State<PacientePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: (){
           if(_editedPaciente.nome != null && _editedPaciente.nome.isNotEmpty ){
-            _editedPaciente.endereco_id = "1";
             Navigator.pop(context, _editedPaciente);
           }else{
             FocusScope.of(context).requestFocus(_nomeFocus);

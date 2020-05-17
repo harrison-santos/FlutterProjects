@@ -2,6 +2,7 @@ import "package:sqflite/sqflite.dart";
 import "package:path/path.dart";
 
 //TABLES
+final String userTable = "user";
 final String especialidadeTable = "especialidade";
 final String medicoTable = "medico";
 final String pagamentoTable = "pagamento";
@@ -16,6 +17,10 @@ final enderecoTable = "endereco";
 //
 
 //FIELDS
+final String user_fields = ""
+    "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+    "username TEXT,"
+    "password TEXT";
 final String especialidade_fields = "id INTEGER PRIMARY KEY, descricao TEXT";
 final String medico_fields =  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
     "nome TEXT, crm TEXT, "
@@ -53,12 +58,13 @@ class CustomDatabaseConnection{
 
   Future<Database> initDb() async{
     final databasesPath = await getDatabasesPath();
-    final path = join(databasesPath, "clinica5.db");
+    final path = join(databasesPath, "user2.db");
 
     return await openDatabase(
         path,
         version: 1,
         onCreate: (Database db, int newerVersion) async{
+          await db.execute("CREATE TABLE $userTable($user_fields)");
           await db.execute("CREATE TABLE $especialidadeTable($especialidade_fields)");
           await db.execute("CREATE TABLE $medicoTable($medico_fields)");
           await db.execute("CREATE TABLE $pagamentoTable($pagamento_fields)");

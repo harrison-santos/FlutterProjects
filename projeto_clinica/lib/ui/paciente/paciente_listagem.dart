@@ -68,18 +68,6 @@ class _ListagemPacienteState extends State<ListagemPaciente> {
             return _pacienteCard(context, index);
           }
       ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                title: Text("Inicio")
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.exit_to_app),
-                title: Text("Sair")
-            ),
-          ],
-        )
     );
   }
 

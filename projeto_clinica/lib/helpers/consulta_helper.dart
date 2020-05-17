@@ -74,6 +74,7 @@ class Consulta{
 
   Map toMap(){
     Map<String, dynamic> map = {
+      "id": id,
       "data": data,
       "cobertura_id": cobertura_id,
       "medico_id": medico_id,

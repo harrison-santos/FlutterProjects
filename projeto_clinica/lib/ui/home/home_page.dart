@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:projetoclinica/helpers/user_helper.dart';
 import 'package:projetoclinica/ui/consulta/consulta_listagem.dart';
 import "package:projetoclinica/ui/paciente/paciente_listagem.dart";
 import "package:projetoclinica/ui/medico/medico_listagem.dart";
-import 'package:projetoclinica/ui/pagamentos/pagamento_listagem.dart';
+import 'package:projetoclinica/ui/pagamento/pagamento_listagem.dart';
 
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
 
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+  int _selectedIndex = 0;
+
+  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,32 +32,32 @@ class HomePage extends StatelessWidget {
           mainAxisSpacing: 5,
           children: <Widget>[
             GestureDetector(
-              onTap: (){
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ListagemMedico())
-                );
-              },
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.all(10.0),
-                    width: 100.0,
-                    height: 100.0,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        image: DecorationImage(
-                            image: AssetImage("images/doctor.png")
-                        )
+                onTap: (){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ListagemMedico())
+                  );
+                },
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.all(10.0),
+                      width: 100.0,
+                      height: 100.0,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          image: DecorationImage(
+                              image: AssetImage("images/doctor.png")
+                          )
+                      ),
                     ),
-                  ),
-                  Text(
-                      "Medicos",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)
-                  ),
-                ],
-              )
+                    Text(
+                        "Medicos",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)
+                    ),
+                  ],
+                )
             ),
             GestureDetector(
                 onTap: (){
@@ -139,16 +149,29 @@ class HomePage extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text("Inicio")
+              icon: Icon(Icons.home),
+              title: Text("Inicio")
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.exit_to_app),
-              title: Text("Sair")
+            icon: Icon(Icons.exit_to_app),
+            title: Text("Sair"),
           ),
         ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.blueAccent,
+        onTap: _bottomNavigationTap,
       ),
     );
+  }
+
+  void _bottomNavigationTap(int index){
+    _selectedIndex = index;
+    if (_selectedIndex == 1){
+      Navigator.pop(context);
+      //Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+
+    }
+
   }
 
 }
