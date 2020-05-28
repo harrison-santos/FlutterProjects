@@ -13,6 +13,8 @@ class _ListagemConsultaState extends State<ListagemConsulta> {
   ConsultaHelper consultaHelper = ConsultaHelper();
   List<Consulta> consultas = List();
 
+
+
   @override
   void initState()  {
     super.initState();
@@ -103,7 +105,8 @@ class _ListagemConsultaState extends State<ListagemConsulta> {
         ),
       ),
       onTap: (){
-        _showConsultaPage(consulta: consultas[index]);
+        _showOptions(context, index);
+        /*_showConsultaPage(consulta: consultas[index]);*/
       },
     );
   }
@@ -115,6 +118,47 @@ class _ListagemConsultaState extends State<ListagemConsulta> {
       });
 
     });
+  }
+
+  void _showOptions(BuildContext context, int index){
+    showModalBottomSheet(
+        context: context,
+        builder: (context){
+          return BottomSheet(
+            onClosing: (){},
+            builder: (context){
+              return Container(
+                padding: EdgeInsets.all(10.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    FlatButton(
+                      child: Text("Editar"),
+                      onPressed: (){
+                        Navigator.pop(context);
+                        _showConsultaPage(consulta: consultas[index]);
+                      },
+                    ),
+                    FlatButton(
+                      child: Text("Excluir"),
+                      onPressed: (){
+                        print(consultas[index].id);
+                        consultaHelper.deleteConsulta(consultas[index].id);
+                        setState(() {
+                          consultas.removeAt(consultas[index].id);
+                          Navigator.pop(context);
+                        });
+                      },
+                    )
+
+                  ],
+                ),
+              );
+            },
+          );
+        }
+    );
+
   }
 
   void _showConsultaPage({Consulta consulta}) async{

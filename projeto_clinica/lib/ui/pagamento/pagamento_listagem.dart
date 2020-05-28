@@ -102,18 +102,63 @@ class _ListagemPagamentoState extends State<ListagemPagamento> {
         ),
       ),
       onTap: (){
-        _showPagamentoPage(pagamento: pagamentos[index]);
+        _showOptions(context, index);
+        //_showPagamentoPage(pagamento: pagamentos[index]);
       },
     );
   }
 
   void _getAllPagamentos(){
     pagamentoHelper.getAllPagamento().then((list){
-      setState(() {
+      setState(() { 
         pagamentos = list;
       });
 
     });
+  }
+
+
+
+
+  void _showOptions(BuildContext context, int index){
+    showModalBottomSheet(
+        context: context,
+        builder: (context){
+          return BottomSheet(
+            onClosing: (){},
+            builder: (context){
+              return Container(
+                padding: EdgeInsets.all(10.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    FlatButton(
+                      child: Text("Editar"),
+                      onPressed: (){
+                        Navigator.pop(context);
+                        _showPagamentoPage(pagamento: pagamentos[index]);
+                      },
+                    ),
+                    FlatButton(
+                      child: Text("Excluir"),
+                      onPressed: (){
+                        print(pagamentos[index].id);
+                        pagamentoHelper.deletePagamento(pagamentos[index].id);
+                        setState(() {
+                          pagamentos.removeAt(pagamentos[index].id);
+                          Navigator.pop(context);
+                        });
+                      },
+                    )
+
+                  ],
+                ),
+              );
+            },
+          );
+        }
+    );
+
   }
 
   void _showPagamentoPage({Pagamento pagamento}) async{

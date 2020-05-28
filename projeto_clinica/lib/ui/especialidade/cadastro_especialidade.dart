@@ -11,11 +11,18 @@ class _CadastroEspecialidadeState extends State<CadastroEspecialidade> {
 
   @override
   void initState()  {
-    /* CREATE
-    Especialidade especialidade = Especialidade();
-    especialidade.descricao = "Dermatologista";
+    //CREATE
+    /*
+    Especialidade especialidade = Especialidade("Cardiologista");
+    especialidadeHelper.createEspecialidade(especialidade);
+    especialidade = Especialidade("Dermatologista");
+    especialidadeHelper.createEspecialidade(especialidade);
+    especialidade = Especialidade("Psiquiatra");
     especialidadeHelper.createEspecialidade(especialidade);
     */
+
+
+    //
 
     /*
     especialidadeHelper.readEspecialidade(1).then((p1){

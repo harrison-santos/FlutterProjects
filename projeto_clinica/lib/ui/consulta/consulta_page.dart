@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:projetoclinica/helpers/consulta_helper.dart';
+import 'package:projetoclinica/helpers/medico_helper.dart';
+import 'package:projetoclinica/helpers/paciente_helper.dart';
 
 class ConsultaPage extends StatefulWidget {
   final Consulta consulta;
@@ -18,10 +20,19 @@ class _ConsultaPageState extends State<ConsultaPage> {
   final _medicoController = TextEditingController();
   final _dataController = TextEditingController();
 
+  PacienteHelper pacienteHelper = PacienteHelper();
+  List<Paciente> listaPacientes = List();
+  String dropdownPacientes = "";
+
+  MedicoHelper medicoHelper = MedicoHelper();
+  List<Medico> listaMedicos = List();
+  String dropdownMedicos = "";
 
   @override
   void initState() {
     super.initState();
+    _getAllPacientes();
+    _getAllMedicos();
     if(widget.consulta == null){
       _editedConsulta = Consulta();
     }else{
@@ -58,29 +69,71 @@ class _ConsultaPageState extends State<ConsultaPage> {
                   )
               ),
             ),
-            TextField(
-              controller: _pacienteController,
-              decoration: InputDecoration(labelText: "Paciente"),
-              keyboardType: TextInputType.number,
-              onChanged: (text){
-                _userEdited = true;
-                setState(() {
-                  _editedConsulta.paciente_id = int.parse(text);
-                });
-              },
+            Container(
+              child: Row(
+                children: <Widget>[
+                  Text("Paciente: ", style: TextStyle(fontSize: 16)),
+                  DropdownButton<String>(
+                    value: dropdownPacientes,
+                    icon: Icon(Icons.arrow_downward),
+                    iconSize: 20,
+                    elevation: 16,
+                    style: TextStyle(color: Colors.blueAccent, fontSize: 16),
+                    onChanged: (String newValue) {
+                      setState(() {
+                        dropdownPacientes = newValue;
+                        for (var paciente in listaPacientes){
+                          if(paciente.nome == newValue){
+                            _editedConsulta.paciente_id = paciente.id;
+                          }
+                        }
+                      });
+                    },
+                    items: listaPacientes.map<DropdownMenuItem<String>>((
+                        Paciente value) {
+                      return DropdownMenuItem<String>(
+                        value: value.nome,
+                        child: Text(value.nome),
+                      );
+                    }).toList(),
+                  )
+                ],
+              ),
             ),
-            TextField(
-              controller: _medicoController,
-              decoration: InputDecoration(labelText: "Médico"),
-              keyboardType: TextInputType.number,
-              onChanged: (text){
-                _userEdited = true;
-                _editedConsulta.medico_id = int.parse(text);
-              },
+            Container(
+              child: Row(
+                children: <Widget>[
+                  Text("Médico: ", style: TextStyle(fontSize: 16)),
+                  DropdownButton<String>(
+                    value: dropdownMedicos,
+                    icon: Icon(Icons.arrow_downward),
+                    iconSize: 20,
+                    elevation: 16,
+                    style: TextStyle(color: Colors.blueAccent, fontSize: 16),
+                    onChanged: (String newValue) {
+                      setState(() {
+                        dropdownMedicos = newValue;
+                        for (var medico in listaMedicos){
+                          if(medico.nome == newValue){
+                            _editedConsulta.medico_id = medico.id;
+                          }
+                        }
+                      });
+                    },
+                    items: listaMedicos.map<DropdownMenuItem<String>>((
+                        Medico value) {
+                      return DropdownMenuItem<String>(
+                        value: value.nome,
+                        child: Text(value.nome),
+                      );
+                    }).toList(),
+                  )
+                ],
+              ),
             ),
             TextField(
               controller: _coberturaController,
-              decoration: InputDecoration(labelText: "Especialidade ID"),
+              decoration: InputDecoration(labelText: "Cobertura ID"),
               keyboardType: TextInputType.number,
               onChanged: (text){
                 _userEdited = true;
@@ -112,5 +165,46 @@ class _ConsultaPageState extends State<ConsultaPage> {
     );
   }
 
+  void _getAllPacientes(){
+      pacienteHelper.getAllPaciente().then((list){
+        setState(() {
+          listaPacientes = list;
+          if (_editedConsulta == null){
+            setState(() {
+              dropdownPacientes = listaPacientes.first.nome;
+              _editedConsulta.paciente_id = listaPacientes.first.id;
+            });
+          }else{
+            for (var paciente in listaPacientes){
+              if(paciente.id == _editedConsulta.paciente_id){
+                dropdownPacientes = paciente.nome;
+              }
+            }
 
+          }
+        });
+      });
+  }
+
+  void _getAllMedicos()  {
+    medicoHelper.getAllMedico().then((list)  {
+      setState(() {
+        listaMedicos = list;
+        if(_editedConsulta.medico_id == null){
+          setState(() {
+            dropdownMedicos = listaMedicos.first.nome;
+            _editedConsulta.medico_id = listaMedicos.first.id;
+          });
+        }else{
+          for (var medico in listaMedicos){
+            if(medico.id == _editedConsulta.medico_id){
+              dropdownMedicos = medico.nome;
+            }
+          }
+
+        }
+        print(listaMedicos);
+      });
+    });
+  }
 }

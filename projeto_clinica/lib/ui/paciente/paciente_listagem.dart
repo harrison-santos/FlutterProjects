@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 import "package:projetoclinica/helpers/paciente_helper.dart";
 
@@ -110,9 +111,51 @@ class _ListagemPacienteState extends State<ListagemPaciente> {
         ),
       ),
       onTap: (){
-        _showPacientePage(paciente: pacientes[index]);
+        _showOptions(context, index);
+        /*_showPacientePage(paciente: pacientes[index]);*/
       },
     );
+  }
+
+  void _showOptions(BuildContext context, int index){
+    showModalBottomSheet(
+        context: context,
+        builder: (context){
+          return BottomSheet(
+            onClosing: (){},
+            builder: (context){
+              return Container(
+                padding: EdgeInsets.all(10.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    FlatButton(
+                      child: Text("Editar"),
+                      onPressed: (){
+                          Navigator.pop(context);
+                        _showPacientePage(paciente: pacientes[index]);
+                      },
+                    ),
+                    FlatButton(
+                      child: Text("Excluir"),
+                      onPressed: (){
+                        print(pacientes[index].id);
+                        pacienteHelper.deletePaciente(pacientes[index].id);
+                        setState(() {
+                          pacientes.removeAt(pacientes[index].id);
+                          Navigator.pop(context);
+                        });
+                      },
+                    )
+
+                  ],
+                ),
+              );
+            },
+          );
+        }
+    );
+
   }
 
   void _showPacientePage({Paciente paciente}) async{

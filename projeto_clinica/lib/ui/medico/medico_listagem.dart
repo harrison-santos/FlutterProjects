@@ -102,7 +102,8 @@ class _ListagemMedicoState extends State<ListagemMedico> {
         ),
       ),
       onTap: (){
-        _showMedicoPage(medico: medicos[index]);
+        _showOptions(context, index);
+       // _showMedicoPage(medico: medicos[index]);
       },
     );
   }
@@ -114,6 +115,47 @@ class _ListagemMedicoState extends State<ListagemMedico> {
       });
 
     });
+  }
+
+  void _showOptions(BuildContext context, int index){
+    showModalBottomSheet(
+        context: context,
+        builder: (context){
+          return BottomSheet(
+            onClosing: (){},
+            builder: (context){
+              return Container(
+                padding: EdgeInsets.all(10.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    FlatButton(
+                      child: Text("Editar"),
+                      onPressed: (){
+                        Navigator.pop(context);
+                        _showMedicoPage(medico: medicos[index]);
+                      },
+                    ),
+                    FlatButton(
+                      child: Text("Excluir"),
+                      onPressed: (){
+                        print(medicos[index].id);
+                        medicoHelper.deleteMedico(medicos[index].id);
+                        setState(() {
+                          medicos.removeAt(medicos[index].id);
+                          Navigator.pop(context);
+                        });
+                      },
+                    )
+
+                  ],
+                ),
+              );
+            },
+          );
+        }
+    );
+
   }
 
   void _showMedicoPage({Medico medico}) async{

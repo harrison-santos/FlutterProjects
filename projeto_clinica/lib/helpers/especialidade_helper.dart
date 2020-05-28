@@ -59,7 +59,7 @@ class Especialidade{
   int id;
   String descricao;
 
-  Especialidade(){}
+  Especialidade(this.descricao){}
 
   Especialidade.fromMap(Map map){
     id = map["id"];

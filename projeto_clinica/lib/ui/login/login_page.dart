@@ -73,8 +73,8 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () async{
                           print(_usernameController.text);
                           print(_passwordController.text);
-                          /*User user1 = User("admin", "admin");
-                        var admin = await userHelper.createUser(user1);*/
+                          User user1 = User("admin", "admin");
+                          var admin = await userHelper.createUser(user1);
                           var user =  await userHelper.getLogin(_usernameController.text, _passwordController.text);
 
                           if (user != null){
