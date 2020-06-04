@@ -11,11 +11,11 @@ class _CadastroCoberturaState extends State<CadastroCobertura> {
 
   @override
   void initState()  {
-  /*
+    /*
     Cobertura cobertura = Cobertura();
-    cobertura.descricao = "Seu plano não tem cobertura";
+    cobertura.descricao = "Golden Edition";
     coberturaHelper.createCobertura(cobertura);
-  */
+    */
     /*
     coberturaHelper.readCobertura(1).then((p1){
       p1.descricao = "Seu plano tem cobertura";

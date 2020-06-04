@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:projetoclinica/helpers/cobertura_helper.dart';
 import 'package:projetoclinica/helpers/consulta_helper.dart';
 import 'package:projetoclinica/helpers/medico_helper.dart';
 import 'package:projetoclinica/helpers/paciente_helper.dart';
@@ -28,11 +29,16 @@ class _ConsultaPageState extends State<ConsultaPage> {
   List<Medico> listaMedicos = List();
   String dropdownMedicos = "";
 
+  CoberturaHelper coberturaHelper = CoberturaHelper();
+  List<Cobertura> listaCoberturas = List();
+  String dropdownCoberturas = "";
+
   @override
   void initState() {
     super.initState();
     _getAllPacientes();
     _getAllMedicos();
+    _getAllCobertura();
     if(widget.consulta == null){
       _editedConsulta = Consulta();
     }else{
@@ -131,14 +137,36 @@ class _ConsultaPageState extends State<ConsultaPage> {
                 ],
               ),
             ),
-            TextField(
-              controller: _coberturaController,
-              decoration: InputDecoration(labelText: "Cobertura ID"),
-              keyboardType: TextInputType.number,
-              onChanged: (text){
-                _userEdited = true;
-                _editedConsulta.cobertura_id = int.parse(text);
-              },
+            Container(
+              child: Row(
+                children: <Widget>[
+                  Text("Cobertura: ", style: TextStyle(fontSize: 16)),
+                  DropdownButton(
+                    value: dropdownCoberturas,
+                    icon: Icon(Icons.arrow_downward),
+                    iconSize: 20,
+                    elevation: 16,
+                    style: TextStyle(color: Colors.blueAccent, fontSize: 16),
+                    onChanged: (String newValue){
+                      setState(() {
+                        dropdownCoberturas = newValue;
+                        for(var cobertura in listaCoberturas){
+                          if(cobertura.descricao == newValue){
+                            _editedConsulta.cobertura_id = cobertura.id;
+                          }
+                        }
+                      });
+                    },
+                    items: listaCoberturas.map<DropdownMenuItem<String>>((Cobertura cobertura){
+                      return DropdownMenuItem<String>(
+                        value: cobertura.descricao,
+                        child: Text(cobertura.descricao),
+                      );
+                    }).toList(),
+                  )
+
+                ],
+              ),
             ),
             TextField(
               controller: _dataController,
@@ -206,5 +234,26 @@ class _ConsultaPageState extends State<ConsultaPage> {
         print(listaMedicos);
       });
     });
+  }
+
+  void _getAllCobertura(){
+    coberturaHelper.getAllCobertura().then((list){
+      setState(() {
+        listaCoberturas = list;
+        if(_editedConsulta.cobertura_id == null){
+          setState(() {
+            dropdownCoberturas = listaCoberturas.first.descricao;
+            _editedConsulta.cobertura_id = listaCoberturas.first.id;
+          });
+        }else{
+          for(var cobertura in listaCoberturas){
+            if(cobertura.id == _editedConsulta.cobertura_id){
+              dropdownCoberturas = cobertura.descricao;
+            }
+          }
+        }
+      });
+    });
+
   }
 }

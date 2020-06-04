@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:projetoclinica/ui/cobertura/cadastro_cobertura.dart';
 import 'package:projetoclinica/ui/home/home_page.dart';
 import 'package:projetoclinica/ui/login/login_page.dart';
 import 'package:projetoclinica/ui/medico/medico_listagem.dart';
