@@ -101,7 +101,11 @@ class _ListagemPacienteState extends State<ListagemPaciente> {
                     Text("Nascimento: ${pacientes[index].dt_nascimento}"),
                     Text("RG: ${pacientes[index].rg}"),
                     Text("CPF: ${pacientes[index].cpf}"),
-                    Text("Endereco: ${pacientes[index].endereco_id.toString()}")
+                    //Text("Endereco: ${pacientes[index].endereco_id.toString()}"),
+                    Text("Cidade: ${pacientes[index].cidade}"),
+                    Text("Bairro: ${pacientes[index].bairro}"),
+                    Text("Rua: ${pacientes[index].rua}"),
+                    Text("Número: ${pacientes[index].numero}"),
                   ],
                 ),
               ),

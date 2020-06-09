@@ -47,10 +47,16 @@ final String receita_medica_fields = "id INTEGER PRIMARY KEY, descricao TEXT, da
     "consulta_id INTEGER, "
     "FOREIGN KEY(consulta_id) REFERENCES consulta(id)";
 final String formas_pagamento_fields = "id INTEGER PRIMARY KEY, descricao TEXT";
-final String paciente_fields = "id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, dt_nascimento TEXT, rg TEXT, cpf TEXT, "
-    "endereco_id TEXT ";
+final String paciente_fields = "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+    "nome TEXT, "
+    "dt_nascimento TEXT, "
+    "rg TEXT, cpf TEXT, "
+    "cidade TEXT,"
+    "bairro TEXT,"
+    "rua TEXT,"
+    "numero TEXT";
 final String requisicao_exame_fields = "id INTEGER PRIMARY KEY, descricao TEXT, data DATE";
-final String endereco_fields = "id INTEGER PRIMARY KEY, rua TEXT, bairro TEXT, numero TEXT";
+//final String endereco_fields = "id INTEGER PRIMARY KEY, rua TEXT, bairro TEXT, numero TEXT";
 //
 
 class CustomDatabaseConnection{
@@ -58,7 +64,7 @@ class CustomDatabaseConnection{
 
   Future<Database> initDb() async{
     final databasesPath = await getDatabasesPath();
-    final path = join(databasesPath, "user2.db");
+    final path = join(databasesPath, "user4.db");
 
     return await openDatabase(
         path,
@@ -75,7 +81,7 @@ class CustomDatabaseConnection{
           await db.execute("CREATE TABLE $formas_pagamentoTable($formas_pagamento_fields)");
           await db.execute("CREATE TABLE $pacienteTable($paciente_fields)");
           await db.execute("CREATE TABLE $requisicao_exameTable($requisicao_exame_fields)");
-          await db.execute("CREATE TABLE $enderecoTable($endereco_fields)");
+          //await db.execute("CREATE TABLE $enderecoTable($endereco_fields)");
         });
   }//END FUNCTION
 

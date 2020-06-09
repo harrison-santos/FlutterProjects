@@ -197,7 +197,7 @@ class _ConsultaPageState extends State<ConsultaPage> {
       pacienteHelper.getAllPaciente().then((list){
         setState(() {
           listaPacientes = list;
-          if (_editedConsulta == null){
+          if (_editedConsulta.paciente_id == null){
             setState(() {
               dropdownPacientes = listaPacientes.first.nome;
               _editedConsulta.paciente_id = listaPacientes.first.id;

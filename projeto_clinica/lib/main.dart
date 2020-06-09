@@ -11,7 +11,7 @@ import 'package:projetoclinica/ui/especialidade/cadastro_especialidade.dart';
 void main(){
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: HomePage()
+    home: LoginPage()
   ));
 
 

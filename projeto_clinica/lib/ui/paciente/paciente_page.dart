@@ -20,7 +20,11 @@ class _PacientePageState extends State<PacientePage> {
   final _dtNascimentoController = TextEditingController();
   final _rgController = TextEditingController();
   final _cpfController = TextEditingController();
-  final _enderecoController = TextEditingController();
+  //final _enderecoController = TextEditingController();
+  final _cidadeController = TextEditingController();
+  final _bairroController = TextEditingController();
+  final _ruaController = TextEditingController();
+  final _numeroController = TextEditingController();
 
   final _nomeFocus = FocusNode();
 
@@ -36,7 +40,11 @@ class _PacientePageState extends State<PacientePage> {
       _dtNascimentoController.text = _editedPaciente.dt_nascimento;
       _rgController.text = _editedPaciente.rg;
       _cpfController.text = _editedPaciente.cpf;
-      _enderecoController.text = _editedPaciente.endereco_id;
+      //_enderecoController.text = _editedPaciente.endereco_id;
+      _cidadeController.text = _editedPaciente.cidade;
+      _bairroController.text = _editedPaciente.bairro;
+      _ruaController.text = _editedPaciente.rua;
+      _numeroController.text = _editedPaciente.numero;
     }
   }
 
@@ -77,7 +85,7 @@ class _PacientePageState extends State<PacientePage> {
             ),
             TextField(
               controller: _dtNascimentoController,
-              decoration: InputDecoration(labelText: "Data de Mascimento: "),
+              decoration: InputDecoration(labelText: "Data de Nascimento: "),
               onChanged: (text){
                 _userEdited = true;
                 _editedPaciente.dt_nascimento = text;
@@ -101,13 +109,36 @@ class _PacientePageState extends State<PacientePage> {
               },
             ),
             TextField(
-              controller: _enderecoController,
-              decoration: InputDecoration(labelText: "Endereco: "),
+              controller: _cidadeController,
+              decoration: InputDecoration(labelText: "Cidade: "),
               onChanged: (text){
                 _userEdited = true;
-                _editedPaciente.endereco_id = "1";
+                _editedPaciente.cidade = text;
               },
-              keyboardType: TextInputType.number,
+            ),
+            TextField(
+              controller: _bairroController,
+              decoration: InputDecoration(labelText: "Bairro: "),
+              onChanged: (text){
+                _userEdited = true;
+                _editedPaciente.bairro = text;
+              },
+            ),
+            TextField(
+              controller: _ruaController,
+              decoration: InputDecoration(labelText: "Rua: "),
+              onChanged: (text){
+                _userEdited = true;
+                _editedPaciente.rua = text;
+              },
+            ),
+            TextField(
+              controller: _numeroController,
+              decoration: InputDecoration(labelText: "Número: "),
+              onChanged: (text){
+                _userEdited = true;
+                _editedPaciente.numero = text;
+              },
             ),
           ],
         ),

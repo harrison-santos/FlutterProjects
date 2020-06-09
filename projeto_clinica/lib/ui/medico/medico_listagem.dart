@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
+import 'package:projetoclinica/helpers/especialidade_helper.dart';
 import "package:projetoclinica/helpers/medico_helper.dart";
 import 'package:projetoclinica/ui/medico/medico_page.dart';
 
@@ -10,6 +11,8 @@ class ListagemMedico extends StatefulWidget {
 }
 
 class _ListagemMedicoState extends State<ListagemMedico> {
+  EspecialidadeHelper especialidadeHelper = EspecialidadeHelper();
+  List<Especialidade> especialidades = List();
   MedicoHelper medicoHelper = MedicoHelper();
   List<Medico> medicos = List();
 
@@ -42,6 +45,9 @@ class _ListagemMedicoState extends State<ListagemMedico> {
       print(list);
     });
 
+    especialidadeHelper.getAllEspecialidade().then((list){
+      especialidades = list;
+    });
 
   }
 
@@ -93,7 +99,7 @@ class _ListagemMedicoState extends State<ListagemMedico> {
                     Text("ID: ${medicos[index].id}" ),
                     Text("Nome: ${medicos[index].nome}" ),
                     Text("Crm: ${medicos[index].crm}" ),
-                    Text("Especialidade: ${medicos[index].especialidade_id}" ),
+                    Text("Especialidade: ${_getEspecialidadeName(medicos[index].especialidade_id)}" ),
                   ],
                 ),
               ),
@@ -172,5 +178,13 @@ class _ListagemMedicoState extends State<ListagemMedico> {
     }
   }
 
+
+  String _getEspecialidadeName(id){
+    for (var i = 0;  i < especialidades.length; i++){
+     if(especialidades[i].id == id){
+       return especialidades[i].descricao;
+     }
+    }
+  }
 
 }

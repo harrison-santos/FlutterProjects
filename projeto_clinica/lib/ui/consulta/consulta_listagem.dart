@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
+import 'package:projetoclinica/helpers/cobertura_helper.dart';
 import "package:projetoclinica/helpers/consulta_helper.dart";
+import 'package:projetoclinica/helpers/medico_helper.dart';
+import 'package:projetoclinica/helpers/paciente_helper.dart';
 import 'package:projetoclinica/ui/consulta/consulta_page.dart';
 
 
@@ -13,13 +16,30 @@ class _ListagemConsultaState extends State<ListagemConsulta> {
   ConsultaHelper consultaHelper = ConsultaHelper();
   List<Consulta> consultas = List();
 
+  MedicoHelper medicoHelper = MedicoHelper();
+  List<Medico> medicos = List();
 
+  CoberturaHelper coberturaHelper = CoberturaHelper();
+  List<Cobertura> coberturas = List();
+
+  PacienteHelper pacienteHelper = PacienteHelper();
+  List<Paciente> pacientes = List();
 
   @override
   void initState()  {
     super.initState();
 
     _getAllConsultas();
+
+    medicoHelper.getAllMedico().then((list){
+      medicos = list;
+    });
+    coberturaHelper.getAllCobertura().then((list){
+      coberturas = list;
+    });
+    pacienteHelper.getAllPaciente().then((list){
+      pacientes = list;
+    });
 
     /*
     Consulta consulta = Consulta();
@@ -93,9 +113,9 @@ class _ListagemConsultaState extends State<ListagemConsulta> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text("ID: ${consultas[index].id}" ),
-                    Text("Paciente: ${consultas[index].paciente_id}" ),
-                    Text("Medico: ${consultas[index].medico_id}" ),
-                    Text("Cobertura: ${consultas[index].cobertura_id}" ),
+                    Text("Paciente: ${_getPacienteName(consultas[index].paciente_id)}" ),
+                    Text("Medico: ${_getMedicoName(consultas[index].medico_id)}" ),
+                    Text("Cobertura: ${_getCoberturaName(consultas[index].cobertura_id)}" ),
                     Text("Data: ${consultas[index].data}" ),
                   ],
                 ),
@@ -175,5 +195,27 @@ class _ListagemConsultaState extends State<ListagemConsulta> {
     }
   }
 
+  String _getMedicoName(id){
+    for (var i = 0;  i < medicos.length; i++){
+      if(medicos[i].id == id){
+        return medicos[i].nome;
+      }
+    }
+  }
 
+  String _getCoberturaName(id){
+    for (var i = 0;  i < coberturas.length; i++){
+      if(coberturas[i].id == id){
+        return coberturas[i].descricao;
+      }
+    }
+  }
+
+  String _getPacienteName(id){
+    for (var i = 0;  i < pacientes.length; i++){
+      if(pacientes[i].id == id){
+        return pacientes[i].nome;
+      }
+    }
+  }
 }

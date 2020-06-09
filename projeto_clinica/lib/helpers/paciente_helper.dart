@@ -14,7 +14,7 @@ class PacienteHelper {
   Future<Paciente> readPaciente(int id) async {
     Database db = await _dbConn.getDb;
     List<Map> maps = await db.query(pacienteTable,
-      columns: ["id", "nome", "dt_nascimento", "rg", "cpf", "endereco_id"],
+      columns: ["id", "nome", "dt_nascimento", "rg", "cpf", "cidade", "bairro", "numero", "numero"],
       where: "id = ?",
       whereArgs: [id]
     );
@@ -61,7 +61,10 @@ class Paciente{
   String dt_nascimento;
   String rg;
   String cpf;
-  String endereco_id;//FOREIGN KEY
+  String cidade;
+  String bairro;
+  String rua;
+  String numero;//FOREIGN KEY
 
   Paciente(){}
 
@@ -71,7 +74,10 @@ class Paciente{
     dt_nascimento = map["dt_nascimento"];
     rg = map["rg"];
     cpf = map["cpf"];
-    endereco_id = map["endereco_id"];
+    cidade = map["cidade"];
+    bairro = map["bairro"];
+    rua = map["rua"];
+    numero = map["numero"];
   }
 
   Map toMap(){
@@ -81,14 +87,17 @@ class Paciente{
       "dt_nascimento": dt_nascimento,
       "rg": rg,
       "cpf": cpf,
-      "endereco_id": endereco_id
+      "cidade": cidade,
+      "bairro": bairro,
+      "rua": rua,
+      "numero": numero
     };
     return map;
   }
 
   @override
   String toString() {
-    return "{ID: $id; Nome: $nome; DT: $dt_nascimento; RG: $rg; CPF: $cpf; Endereco: $endereco_id}";
+    return "{ID: $id; Nome: $nome; DT: $dt_nascimento; RG: $rg; CPF: $cpf;}";
   }
 
 
